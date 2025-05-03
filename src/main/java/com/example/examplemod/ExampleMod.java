@@ -12,7 +12,6 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -57,6 +56,8 @@ public class ExampleMod
         final Block block = new BlockClayForming(BlockBehaviour.Properties.of().mapColor(MapColor.CLAY).dynamicShape());
         return block;
     });
+    // TODO use clay for this
+    public static final RegistryObject<Item> CLAY_FORMING_BLOCK_ITEM = ITEMS.register("clay_forming", () -> new BlockItem(CLAY_FORMING_BLOCK.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockEntityType<ClayBlockEntity>> CLAY_FORMING_BE = BLOCK_ENTITIES.register("clay_forming", () -> BlockEntityType.Builder.of(ClayBlockEntity::new, CLAY_FORMING_BLOCK.get()).build(null));
 
@@ -81,6 +82,7 @@ public class ExampleMod
 
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
+        BLOCK_ENTITIES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
@@ -112,8 +114,10 @@ public class ExampleMod
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(EXAMPLE_BLOCK_ITEM);
+            event.accept(CLAY_FORMING_BLOCK_ITEM);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
