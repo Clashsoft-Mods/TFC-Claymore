@@ -151,6 +151,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:patchouli-306770:${patchouli_fileid}")
     implementation fg.deobf("curse.maven:terrafirmacraft-302973:${tfc_fileid}")
+    implementation fg.deobf("curse.maven:jei-238222:${jei_fileid}")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
