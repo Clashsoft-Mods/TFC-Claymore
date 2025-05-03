@@ -89,6 +89,11 @@ public class ClayBlockEntity extends BlockEntity {
     }
 
     @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.load(tag);
+    }
+
+    @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         // Will get tag from #getUpdateTag
         return ClientboundBlockEntityDataPacket.create(this);
